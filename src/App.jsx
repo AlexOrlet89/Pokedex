@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Search from './components/Search';
-import { fetchPokemon } from './services/pokemon';
+import { fetchFilteredPokemon, fetchPokemon } from './services/pokemon';
 import Home from './views/Home';
 
 export default function App() {
@@ -19,11 +19,23 @@ export default function App() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchFilteredPokemon(searchedPokemon);
+        setPokemon(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, [searchedPokemon]);
   return (
     <>
       <h1>Hello Pokemon</h1>
       <Search setSearchedPokemon={setSearchedPokemon} />
-      <Home pokemon={pokemon} searchedPokemon={searchedPokemon} />
+      <Home pokemon={pokemon} />
     </>
   );
 }
