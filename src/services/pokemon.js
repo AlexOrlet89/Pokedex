@@ -4,6 +4,6 @@ export async function fetchPokemon() {
     'https://pokedex-alchemy.herokuapp.com/api/pokedex?perPage=10'
   );
   const data = await response.json();
-  console.log(data.results);
+  console.log(data.results, typeof data.results);
   return data.results;
 }
