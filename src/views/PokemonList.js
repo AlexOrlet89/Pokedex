@@ -7,8 +7,12 @@ export default function PokemonList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchPokemon();
-      setPokemon(data);
+      try {
+        const data = await fetchPokemon();
+        setPokemon(data);
+      } catch (error) {
+        console.log(error.message);
+      }
     };
     fetchData();
   }, []);
