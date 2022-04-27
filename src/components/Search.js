@@ -4,7 +4,10 @@ export default function Search({ setSearchedPokemon }) {
   return (
     <>
       Filter By Name
-      <input onChange={(e) => setSearchedPokemon(e.target.value)}></input>
+      <input
+        type="text"
+        onChange={(e) => setSearchedPokemon(e.target.value)}
+      ></input>
     </>
   );
 }
