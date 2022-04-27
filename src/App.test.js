@@ -11,12 +11,12 @@ test('search should filter our pokemon, updating our state and returning one spe
   const input = screen.getByRole('textbox');
   //simulate user typing in pikachu
   userEvent.type(input, 'pikachu');
-  const value = input.value;
-  console.log('value', value);
+  // const value = input.value;
+  // console.log('value', value);
   return waitFor(() => {
     //WE NEED A PIKACHU
     const result = screen.getAllByRole('listitem');
     expect(result[0].textContent.trim()).toEqual('pikachu');
-    screen.debug();
+    // screen.debug();
   });
 });
