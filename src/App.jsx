@@ -1,3 +1,41 @@
+import { useEffect, useState } from 'react';
+import Search from './components/Search';
+import { fetchFilteredPokemon, fetchPokemon } from './services/pokemon';
+import Home from './views/Home';
+
 export default function App() {
-  return <h1>Hello World</h1>;
+  //'.map is not a function' means you're trying to map an object, you should be mapping and array!!!
+  const [pokemon, setPokemon] = useState([]);
+  const [searchedPokemon, setSearchedPokemon] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchPokemon();
+        setPokemon(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchFilteredPokemon(searchedPokemon);
+        setPokemon(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, [searchedPokemon]);
+  return (
+    <>
+      <h1>Hello Pokemon</h1>
+      <Search setSearchedPokemon={setSearchedPokemon} />
+      <Home pokemon={pokemon} />
+    </>
+  );
 }
